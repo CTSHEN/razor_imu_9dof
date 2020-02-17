@@ -57,8 +57,8 @@ rospy.init_node("razor_node")
 pub = rospy.Publisher('imu', Imu, queue_size=1)
 pub_mag = rospy.Publisher('magnetometer', MagneticField, queue_size=1)  #CTSHEN
 srv = Server(imuConfig, reconfig_callback)  # define dynamic_reconfigure callback
-diag_pub = rospy.Publisher('diagnostics', DiagnosticArray, queue_size=1)
-diag_pub_time = rospy.get_time();
+#diag_pub = rospy.Publisher('diagnostics', DiagnosticArray, queue_size=1)
+#diag_pub_time = rospy.get_time();
 
 imuMsg = Imu()
 magMsg = MagneticField() # CTSHEN
@@ -243,8 +243,24 @@ while not rospy.is_shutdown():
         imuMsg.linear_acceleration.y = float(words[1]) * accel_factor
         imuMsg.linear_acceleration.z = float(words[2]) * accel_factor
 
-        magMsg.magnetic_field.x = 
+        magMsg.magnetic_field.x = float(words[3])
+        magMsg.magnetic_field.y = -float(words[4])
+        magMsg.magnetic_field.z = -float(words[5])
 
-        
+        imuMsg.angular_velocity.x = float(words[6])
+        imuMsg.angular_velocity.y = float(words[7])
+        imuMsg.angular_velocity.z = float(words[8])
+
+        # Fill the header
+        imuMsg.header.stamp = rospy.Time.now()
+        magMsg.header.stamp = rospy.Time.now()
+        imuMsg.header.frame_id = 'base_imu_link'
+        magMsg.header.frame_id = 'base_imu_link'
+        imuMsg.header.seq = seq
+        magMsg.header.seq = seq
+        seq = seq + 1
+        pub.publish(imuMsg)
+        pub_mag.publish(magMsg)
+      
 ser.close
 #f.close
