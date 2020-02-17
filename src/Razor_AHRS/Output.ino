@@ -87,7 +87,7 @@ void output_calibration(int calibration_sensor)
   LOG_PORT.print(gyro[2]); LOG_PORT.println();
 }*/
 
-void output_sensors_text(char raw_or_calibrated)
+void output_sensors_text(char raw_or_calibrated)  // CTSHEN
 {
   LOG_PORT.print("#AMG-"); LOG_PORT.print(raw_or_calibrated); LOG_PORT.print('=');
   LOG_PORT.print(accel[0]); LOG_PORT.print(",");

@@ -34,7 +34,7 @@ import math
 import sys
 
 #from time import time
-from sensor_msgs.msg import Imu
+from sensor_msgs.msg import Imu, MagneticField #CTSHEN
 from tf.transformations import quaternion_from_euler
 from dynamic_reconfigure.server import Server
 from razor_imu_9dof.cfg import imuConfig
@@ -55,11 +55,13 @@ def reconfig_callback(config, level):
 rospy.init_node("razor_node")
 #We only care about the most recent measurement, i.e. queue_size=1
 pub = rospy.Publisher('imu', Imu, queue_size=1)
+pub_mag = rospy.Publisher('magnetometer', MagneticField, queue_size=1)  #CTSHEN
 srv = Server(imuConfig, reconfig_callback)  # define dynamic_reconfigure callback
 diag_pub = rospy.Publisher('diagnostics', DiagnosticArray, queue_size=1)
 diag_pub_time = rospy.get_time();
 
 imuMsg = Imu()
+magMsg = MagneticField() # CTSHEN
 
 # Orientation covariance estimation:
 # Observed orientation noise: 0.3 degrees in x, y, 0.6 degrees in z
