@@ -69,7 +69,7 @@ void output_calibration(int calibration_sensor)
   }
 }
 
-void output_sensors_text(char raw_or_calibrated)
+/*void output_sensors_text(char raw_or_calibrated)
 {
   LOG_PORT.print("#A-"); LOG_PORT.print(raw_or_calibrated); LOG_PORT.print('=');
   LOG_PORT.print(accel[0]); LOG_PORT.print(",");
@@ -83,6 +83,22 @@ void output_sensors_text(char raw_or_calibrated)
 
   LOG_PORT.print("#G-"); LOG_PORT.print(raw_or_calibrated); LOG_PORT.print('=');
   LOG_PORT.print(gyro[0]); LOG_PORT.print(",");
+  LOG_PORT.print(gyro[1]); LOG_PORT.print(",");
+  LOG_PORT.print(gyro[2]); LOG_PORT.println();
+}*/
+
+void output_sensors_text(char raw_or_calibrated)
+{
+  LOG_PORT.print("#AMG-"); LOG_PORT.print(raw_or_calibrated); LOG_PORT.print('=');
+  LOG_PORT.print(accel[0]); LOG_PORT.print(",");
+  LOG_PORT.print(accel[1]); LOG_PORT.print(",");
+  LOG_PORT.print(accel[2]); LOG_PORT.print(",");
+
+  LOG_PORT.print(magnetom[0]); LOG_PORT.print(",");
+  LOG_PORT.print(magnetom[1]); LOG_PORT.print(",");
+  LOG_PORT.print(magnetom[2]); LOG_PORT.print(',');
+
+  LOG_PORT.print(gyro[0]); LOG_PORT.print(',');
   LOG_PORT.print(gyro[1]); LOG_PORT.print(",");
   LOG_PORT.print(gyro[2]); LOG_PORT.println();
 }
