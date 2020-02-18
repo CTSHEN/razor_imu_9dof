@@ -248,8 +248,8 @@ while not rospy.is_shutdown():
         magMsg.magnetic_field.z = -float(words[5])
 
         imuMsg.angular_velocity.x = float(words[6])
-        imuMsg.angular_velocity.y = float(words[7])
-        imuMsg.angular_velocity.z = float(words[8])
+        imuMsg.angular_velocity.y = -float(words[7])
+        imuMsg.angular_velocity.z = -float(words[8])
 
         # Fill the header
         imuMsg.header.stamp = rospy.Time.now()
